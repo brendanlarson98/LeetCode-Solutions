@@ -1,0 +1,43 @@
+# Given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a
+# single digit. Add the two numbers and return the sum as a linked list.
+# You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+## Logic:
+## We recursively traverse our linked list to obtain the number stored inside.
+## We add the two numbers
+## Create a new linked list, storing our new total inside.
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def addTwoNumbers(l1, l2):
+        num1 = 0
+        num2 = 0
+
+        def get_num(node, num):
+            if not node:
+                return 0
+            num = get_num(node.next, num) * 10 + node.val
+            return num
+
+        total = get_num(l1, num1) + get_num(l2, num2)
+
+        if total == 0:
+            return ListNode(0, None)
+
+        def get_link(node, num):
+            if num == 0:
+                return
+
+            remainder = num % 10
+            new_node = ListNode(remainder)
+            node.next = new_node
+
+            get_link(new_node, num // 10)
+
+        hello = ListNode()
+        get_link(hello, total)
+
+        return hello.next
