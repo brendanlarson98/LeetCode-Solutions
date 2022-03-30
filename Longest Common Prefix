@@ -1,0 +1,47 @@
+#Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string "".
+
+## Runtime: 40 ms, faster than 76.50% of Python3 online submissions for Longest Common Prefix.
+## Memory Usage: 14 MB, less than 13.51% of Python3 online submissions for Longest Common Prefix.
+
+## Logic:
+## Here we create a recursive function which tests the commonality between each word. We start with the first pair and see how much they match by iterating.
+## over their letters. We then recursively check each successive word until we reach the end or there is no commonality.
+
+def longestCommonPrefix(self, strs: List[str]) -> str:
+    leng = len(strs)
+    if leng == 0:             # if there is no length or only one word, return the respective output.
+        return ''
+    if leng == 1:
+        return strs[0]
+
+    iterate = 1
+    common = 200              # common limit set by constraints, see bottom
+
+    def rec_submission(strs, leng, iterate, common):
+        if common == 0:             # base case
+            return common
+
+        word1 = strs[iterate-1]     # the two words to check
+        word2 = strs[iterate]
+
+        same = 0
+
+        size = min(len(word1), len(word2), common)      # size to check, must be either our previously declared prefix size, or size of word
+        for i in range(size):
+            if word1[i] != word2[i]:
+                break
+            same += 1                           # iterate to get new common prefix size
+
+        if iterate + 1 < leng:
+            return rec_submission(strs, leng, iterate + 1, min(common, same))       # If we haven't reached the end, iterate through. else, return our prefix size
+        else:
+            return min(common, same)
+
+    number_same = rec_submission(strs, leng, iterate, 200)
+    return strs[0][:number_same]
+    
+    
+### Constraints:
+### 1 <= strs.length <= 200
+### 0 <= strs[i].length <= 200
+### strs[i] consists of only lower-case English letters.
