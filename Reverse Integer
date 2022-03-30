@@ -1,0 +1,27 @@
+# Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range
+# [-231, 231 - 1], then return 0. Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+## Runtime: 42 ms, faster than 64.03% of Python3 online submissions for Reverse Integer.
+## Memory Usage: 13.8 MB, less than 67.93% of Python3 online submissions for Reverse Integer.
+
+## Logic:
+## We store the sign of our number and make our number positive. We take the last digit of our number by the modulo and add it to num, increased by 
+## * 10 each loop, until our number is 0. If our number is greater than the 32 bit, return 0. return our number multiplied by the sign.
+
+def reverse(x):
+    if x < 0:
+        sign = -1
+    else:
+        sign = 1
+
+    x *= sign
+    num = 0
+
+    while x > 0:
+        num = num * 10 + x % 10
+        x = x // 10
+
+    if num > 2 ** 31:
+        return 0
+
+    return num * sign
