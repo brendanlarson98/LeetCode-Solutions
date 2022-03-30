@@ -1,0 +1,39 @@
+# This code will search a 2D (m x n) sized matrix for a target number.
+
+## Runtime: 48 ms, faster than 84.58% of Python3 online submissions for Search a 2D Matrix.
+##Memory Usage: 14.5 MB, less than 46.15% of Python3 online submissions for Search a 2D Matrix.
+
+## This matrix has the following properties:
+## Integers in each row are sorted from left to right.
+## The first integer of each row is greater than the last integer of the previous row.
+
+## Logic:
+## We start at the beginning and ending elements, checking to see if our target is there. If not, we work inwards.
+
+def SearchMatrix(matrix, target):
+    m = len(matrix)
+    n = len(matrix[0])
+    top_row = 0
+    top_col = 0
+
+    bot_row = m - 1
+    bot_col = n - 1
+
+    while top_row <= bot_row:
+        if matrix[top_row][top_col] == target:
+            return True
+        else:
+            top_col += 1
+            if top_col == n:
+                top_col = 0
+                top_row += 1
+
+        if matrix[bot_row][bot_col] == target:
+            return True
+        else:
+            bot_col -= 1
+            if bot_col < 0:
+                bot_col = n - 1
+                bot_row -= 1
+
+    return False
