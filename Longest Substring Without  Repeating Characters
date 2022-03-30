@@ -1,0 +1,23 @@
+# Given a string s, find the length of the longest substring without repeating characters.
+
+## Logic:
+## Here we have a moving window of numbers, a set titled substring. If the number we are at is not included in our set, we add that number to the set and
+## increase the size of our window. If the number we approach is in our set, we remove all the numbers in our set and move the start of our window to our
+## index location, i.
+
+def lengthOfLongestSubstring(s):
+
+    j = 0
+    num = 0
+    substring = set()
+    for i in range(len(s)):
+        if s[i] not in substring:
+            substring.add(s[i])
+            num = max(num, len(substring))
+        else:
+            while s[j]!=s[i]:
+                substring.remove(s[j])
+                j+=1
+            j+=1
+
+    return res
