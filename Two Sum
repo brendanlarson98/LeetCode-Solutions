@@ -1,0 +1,18 @@
+# Here we see if there are two numbers in an array which will add to a certain target. If there are, we return their index pair in a list.
+
+## Logic:
+## We iterate once through the array, checking to see if the difference of the target and our value are seen in a hashmap we create. If it is in the
+## hashmap, return the index pair. If not, we add the value and its index to the hashmap.
+## This works because if there is a pair, we eventually find the two pairs we add the the first value to the hashmap, then eventually that number is
+## equal to the difference between the target and its pair.
+
+def twoSum(nums, target):
+
+    hashmap = {}
+    for i, value in enumerate(nums):
+        difference = target - nums[i]
+
+        if difference in hashmap:
+            return [seen[difference], i]
+
+        hashmap[value] = i
