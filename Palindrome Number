@@ -1,0 +1,17 @@
+# Given an integer x, return true if x is palindrome integer. An integer is a palindrome when it reads the same backward as forward.
+
+## Logic:
+## Create a new number, which is added to by the modulo of our original number, x. The new number should be multiplied by ten each round, while x is 
+## decreased each round by the same factor. 
+
+def isPalindrome(x):
+    num = 0
+    j = x
+    while x > 0:
+        num = num * 10 + (x % 10)
+        x = x // 10
+
+    if num == j:
+        return True
+    else:
+        return False
