@@ -12,32 +12,25 @@ class ListNode:
         self.val = val
         self.next = next
 
-def addTwoNumbers(l1, l2):
-        num1 = 0
-        num2 = 0
+def add_two_nums(l1, l2):
+    def get_num(node, num):
+        if not node:
+            return 0
+        else:
+            num = get_num(node.next, num) * 10 + node.val 
+        return num
 
-        def get_num(node, num):
-            if not node:
-                return 0
-            num = get_num(node.next, num) * 10 + node.val
-            return num
-
-        total = get_num(l1, num1) + get_num(l2, num2)
-
-        if total == 0:
-            return ListNode(0, None)
-
-        def get_link(node, num):
-            if num == 0:
-                return
-
-            remainder = num % 10
-            new_node = ListNode(remainder)
-            node.next = new_node
-
-            get_link(new_node, num // 10)
-
-        hello = ListNode()
-        get_link(hello, total)
-
-        return hello.next
+    total = get_num(l1, 0) + get_num(l2, 0)
+    
+    new_sum = ListNode()
+    if total == 0:
+        return new_sum
+    
+    def create_number(node, number):
+        if number == 0:
+            return
+        node.next = ListNode(number % 10)
+        return create_number(node.next, number // 10)
+    
+    create_number(new_sum, total)
+    return new_sum.next
